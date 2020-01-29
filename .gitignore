@@ -19,3 +19,4 @@ ext/.INSTALLED
 *.dll
 /src/env/ged_env.*.cpp
 !/src/env/ged_env.gxl.cpp
+.vscode/

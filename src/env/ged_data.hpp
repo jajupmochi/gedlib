@@ -41,6 +41,7 @@
 #include "../edit_costs/protein.hpp"
 #include "../edit_costs/fingerprint.hpp"
 #include "../edit_costs/letter.hpp"
+#include "../edit_costs/letter_2.hpp"
 #include "../edit_costs/constant.hpp"
 
 namespace ged {

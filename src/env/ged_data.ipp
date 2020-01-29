@@ -163,6 +163,17 @@ set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double> & edit_
 			throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::LETTER. Expected: 3 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
 		}
 		break;
+	case Options::EditCosts::LETTER2:
+			if (edit_cost_constants.size() == 5) {
+				edit_costs_ = new Letter2<GXLLabel, GXLLabel>(edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2), edit_cost_constants.at(3), edit_cost_constants.at(4)); // @suppress("Symbol is not resolved")
+			}
+			else if (edit_cost_constants.size() == 0) {
+				edit_costs_ = new Letter2<GXLLabel, GXLLabel>();
+			}
+			else {
+				throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::LETTER2. Expected: 5 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
+			}
+			break;
 	case Options::EditCosts::CMU:
 		if (edit_cost_constants.size() == 2) {
 			edit_costs_ = new CMU<GXLLabel, GXLLabel>(edit_cost_constants.at(0), edit_cost_constants.at(2)); // @suppress("Symbol is not resolved")
