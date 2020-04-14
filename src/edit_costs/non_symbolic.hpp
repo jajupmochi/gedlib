@@ -20,38 +20,38 @@
 ***************************************************************************/
 
 /*!
- * @file letter_2.hpp
- * @brief ged::Letter2 class declaration.
+ * @file non_symbolic.hpp
+ * @brief ged::NonSymbolic class declaration.
  */
 
-#ifndef SRC_EDIT_COSTS_LETTER_2_HPP_
-#define SRC_EDIT_COSTS_LETTER_2_HPP_
+#ifndef SRC_EDIT_COSTS_NON_SYMBOLIC_HPP_
+#define SRC_EDIT_COSTS_NON_SYMBOLIC_HPP_
 
 #include "edit_costs.hpp"
 
 namespace ged {
 
 /*!
- * @brief Edit costs for graphs contained in Letter datasets.
- * @details The graphs contained in the Letter datasets represent the capital letters A, E, F, H, I, K, L, M, N, T, V, W, X, Y, and Z which have been distorted by three different degrees (low, medium, high).
- * Nodes are attributed with Euclidean coordinates (named "x" and "y").
- * Edges have no attributes.
- * The Letter datasets are contained in the IAM graph database repository which can be downloaded from http://www.fki.inf.unibe.ch/databases/iam-graph-database:
- * - K. Riesen, H. Bunke:
- *   IAM graph database repository for graph based pattern recognition and machine learning,
- *   https://doi.org/10.1007/978-3-540-89689-0_33
+ * @brief Edit costs for graphs containing only non-symbolic labels.
+ * @details This cost is designed for graphs containing only non-symbolic labels. Examples of such datasets include: COIL-RAG, COLORS-3, Fingerprint, FRANKENSTEIN, Letter-high, Letter-low, Letter-med, SYNTHETIC, SYNTHETICnew, Synthie, TWITTER-Real-Graph-Partial, which can be downloaded from https://ls11-www.cs.tu-dortmund.de/staff/morris/graphkerneldatasets:
+ * - Kristian Kersting, Nils M. Kriege, Christopher Morris, Petra Mutzel, Marion Neumann:
+ *   Benchmark Data Sets for Graph Kernels,
+ *   http://graphkernels.cs.tu-dortmund.de
+ * 
+ * Nodes are attributed with non-symbolic labels, all of which are used to compute node replace costs.
+ * Edges are attributed with non-symbolic labels, all of which are used to compute node replace costs.
  *
  * Implements a generalized version of the edit costs suggested in:
  * - K. Riesen, H. Bunke:
  *   Graph data, in: *Graph Classification and Clustering Based on Vector Space Embedding*,
  *   https://doi.org/10.1142/9789814304726_0004
- * In this implementation, costs of node/edge ins/del and node rel are set seperatedly.
+ * In this implementation, costs of node/edge ins/del/rel are set seperatedly.
  */
 template<class UserNodeLabel, class UserEdgeLabel>
-class Letter2 : public EditCosts<UserNodeLabel, UserEdgeLabel> {
+class NonSymbolic : public EditCosts<UserNodeLabel, UserEdgeLabel> {
 public:
 
-	virtual ~Letter2();
+	virtual ~NonSymbolic();
 
 	/*!
 	 * @brief Constructor.
@@ -60,11 +60,10 @@ public:
 	 * @param[in] node_rel_cost
 	 * @param[in] edge_ins_cost
 	 * @param[in] edge_del_cost
-	 * @note Calling the constructor with the default arguments constructs the edit costs for Letter high suggested in https://doi.org/10.1142/9789814304726_0004.
-	 * For Letter medium, the suggested arguments are <tt>node_ins_del_cost = 0.7</tt>, <tt>edge_ins_del_cost = 1.9</tt>, and <tt>alpha = 0.75</tt>.
-	 * For Letter low, the suggested arguments are <tt>node_ins_del_cost = 0.3</tt>, <tt>edge_ins_del_cost = 0.1</tt>, and <tt>alpha = 0.25</tt>.
+	 * @param[in] edge_del_cost
+	 * @note When attributes of nodes and/or edges do not exist, set <tt>node_rel_cost = 0</tt> and/or <tt>edge_rel_cost = 0</tt> respectively, the corresponding function will return 0 accordingly. The default values of all edit cost constants are set to constant 1.
 	 */
-	Letter2(double node_ins_cost = 0.675, double node_del_cost = 0.675, double node_rel_cost = 0.75, double edge_ins_cost = 0.425, double edge_del_cost = 0.425);
+	NonSymbolic(double node_ins_cost = 1, double node_del_cost = 1, double node_rel_cost = 1, double edge_ins_cost = 1, double edge_del_cost = 1, double edge_rel_cost = 1);
 
 	virtual double node_ins_cost_fun(const UserNodeLabel & node_label) const final;
 
@@ -73,6 +72,8 @@ public:
 	virtual double node_rel_cost_fun(const UserNodeLabel & node_label_1, const UserNodeLabel & node_label_2) const final;
 
 	virtual UserNodeLabel median_node_label(const std::vector<UserNodeLabel> & node_labels) const final;
+
+	virtual UserEdgeLabel median_edge_label(const std::vector<UserEdgeLabel> & edge_labels) const final;
 
 	virtual double edge_ins_cost_fun(const UserEdgeLabel & edge_label) const final;
 
@@ -91,10 +92,12 @@ private:
 	double edge_ins_cost_;
 
 	double edge_del_cost_;
+
+	double edge_rel_cost_;
 };
 
 }
 
-#include "letter_2.ipp"
+#include "non_symbolic.ipp"
 
-#endif /* SRC_EDIT_COSTS_LETTER_2_HPP_ */
+#endif /* SRC_EDIT_COSTS_NON_SYMBOLIC_HPP_ */

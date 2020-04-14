@@ -204,7 +204,8 @@ struct Options {
 		PROTEIN,     //!< Selects ged::Protein.
 		FINGERPRINT, //!< Selects ged::Fingerprint.
 		LETTER,      //!< Selects ged::Letter.
-		LETTER2,		 //!< Selects ged:Letter2.
+		LETTER2,     //!< Selects ged:Letter2.
+		NON_SYMBOLIC, //!< Selects ged:NonSymbolic.
 		CONSTANT     //!< Selects ged::Constant.
 	};
 
