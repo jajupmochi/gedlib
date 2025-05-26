@@ -5,5 +5,9 @@
         "activityBar.background": "#3F2635",
         "titleBar.activeBackground": "#58354A",
         "titleBar.activeForeground": "#FCFAFB"
-    }
+    },
+    "cSpell.words": [
+        "Blumenthal",
+        "GEDLIB"
+    ]
 }
