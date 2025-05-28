@@ -12,7 +12,32 @@ I use Clang++ and CodeLLDB tool chain, which is claimed to be "modern".
 
 ## Step 1: Install VS Code.
 
-For Ubuntu, I recommend to download .deb file from the website and install. **Do not use snap version comes with the Ubuntu App store**. It runs in a sandbox, which can cause a super amout of permission problem!
+For Ubuntu, I recommend to use this script to download (from apt repo):
+
+```bash
+# Install dep
+sudo apt install wget gpg
+
+# Import Microsoft GPG key
+wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
+rm packages.microsoft.gpg
+
+# Add VS Code repo
+sudo sh -c 'echo "deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+
+# Update and install
+sudo apt update
+sudo apt install code
+```
+
+**Do not use snap version comes with the Ubuntu App store**. It runs in a sandbox, which can cause a super amout of permission problem!
+
+If download .deb file from the website and install, sometimes it may have this error:
+
+```
+dependency not satisfiable: libgtk-3-0
+```
 
 ## Step 2: Install necessary packages.
 

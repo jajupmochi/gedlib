@@ -4,6 +4,18 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+      {
+        "name": "Debug CMake active file for unitest",
+        "type": "lldb",
+        "request": "launch",
+        "program": "${workspaceFolder}/tests/unit_tests/bin/${fileBasenameNoExtension}",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "stopOnEntry": false,
+        "preLaunchTask": "cmake build active file unitest",
+        // "console": "integratedTerminal",
+        "console": "externalTerminal", // Use external terminal for better output visibility
+      },
     // {
     //     "name": "CodeLLDB Launch (single file)",
     //     "type": "lldb",
@@ -23,17 +35,17 @@
     //     // ],
     //     "preLaunchTask": "C/C++: clang++ build active file"
     // },
-    {
-      "name": "Debug CMake active file for unitest",
-      "type": "lldb",
-      "request": "launch",
-      "program": "${workspaceFolder}/tests/unit_tests/bin/${fileBasenameNoExtension}",
-      "args": [],
-      "cwd": "${workspaceFolder}",
-      "stopOnEntry": false,
-      "preLaunchTask": "cmake build active file",
-      "console": "integratedTerminal"
-    },
+    // {
+    //   "name": "(lldb) Launch active file for unitest with preset (clang)",
+    //   "type": "lldb",
+    //   "request": "launch",
+    //   "program": "${workspaceFolder}/build/tests/unit_tests/bin/${fileBasenameNoExtension}",
+    //   "args": [],
+    //   "cwd": "${workspaceFolder}",
+    //   "stopOnEntry": false,
+    //   "preLaunchTask": "cmake build active file with preset (clang)",
+    //   "console": "integratedTerminal"
+    // },
     // {
     //   "name": "Debug tests (with CMake)",
     //   "type": "lldb",

@@ -9,5 +9,11 @@
     "cSpell.words": [
         "Blumenthal",
         "GEDLIB"
-    ]
+    ],
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.arguments": ["--compile-commands-dir=build"],
+    // Use ninja to build the project
+    "cmake.generator": "Ninja",
+    "cmake.configureOnOpen": true,
+    "terminal.explorerKind": "external",
 }
