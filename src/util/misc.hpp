@@ -31,6 +31,8 @@
 #include "../env/node_map.hpp"
 #include "../util/lsap_solver.hpp"
 #include "../util/lsape_solver.hpp"
+#include "../env/common_types.hpp"
+#include <optional>
 
 namespace ged {
 
@@ -101,9 +103,21 @@ void tokenize(const std::string & sentence, char sep, std::vector<std::string> &
  */
 bool is_option_name(std::string & word);
 
-}
+/*
+ * @brief Returns the value of an attribute label for a given key.
+ * @tparam T The type of the value that should be returned.
+ * @param[in] label_map The attribute label map.
+ * @param[in] key The key whose value should be returned.
+ * @return An optional reference to the value of the attribute label for the given key if it exists, or an empty optional if the key does not exist in the label map.
+ * @note If the key exists in the label map, the value is returned as a reference wrapper to avoid copying. Otherwise, an empty optional is returned.
+ */
+template<typename T>
+std::optional<std::reference_wrapper<const T>> 
+get_attr_label_value(const ged::AttrLabel & label_map, const std::string & key);
 
-}
+} // namespace util
+
+} // namespace ged
 
 #include "misc.ipp"
 

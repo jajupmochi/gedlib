@@ -49,11 +49,18 @@ original_to_internal_node_ids_(),
 internal_to_original_node_ids_(),
 ged_method_{nullptr} {}
 
+// template<class UserNodeID, class UserNodeLabel, class UserEdgeLabel>
+// void
+// GEDEnv<UserNodeID, UserNodeLabel, UserEdgeLabel>::
+// set_edit_costs(Options::EditCosts edit_costs, std::vector<double> edit_cost_constants) {
+// 	ged_data_.set_edit_costs_(edit_costs, edit_cost_constants);
+// }
+
 template<class UserNodeID, class UserNodeLabel, class UserEdgeLabel>
 void
 GEDEnv<UserNodeID, UserNodeLabel, UserEdgeLabel>::
-set_edit_costs(Options::EditCosts edit_costs, std::vector<double> edit_cost_constants) {
-	ged_data_.set_edit_costs_(edit_costs, edit_cost_constants);
+set_edit_costs(Options::EditCosts edit_costs, std::vector<double> edit_cost_constants, const std::unordered_map<std::string, std::any> & edit_cost_config) {
+	ged_data_.set_edit_costs_(edit_costs, edit_cost_constants, edit_cost_config);
 }
 
 template<class UserNodeID, class UserNodeLabel, class UserEdgeLabel>

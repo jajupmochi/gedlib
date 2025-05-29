@@ -38,6 +38,13 @@ EditCosts<UserNodeLabel, UserEdgeLabel>::
 EditCosts() {}
 
 template<class UserNodeLabel, class UserEdgeLabel>
+void
+EditCosts<UserNodeLabel, UserEdgeLabel>::
+set_config(const std::unordered_map<std::string, std::any> & config) {
+	// Default implementation does nothing.
+}
+
+template<class UserNodeLabel, class UserEdgeLabel>
 double
 EditCosts<UserNodeLabel, UserEdgeLabel>::
 node_del_cost_fun(const UserNodeLabel & node_label) const {

@@ -43,6 +43,7 @@
 #include "../edit_costs/letter.hpp"
 #include "../edit_costs/letter_2.hpp"
 #include "../edit_costs/non_symbolic.hpp"
+#include "../edit_costs/geometric.hpp"
 #include "../edit_costs/constant.hpp"
 
 namespace ged {
@@ -471,6 +472,8 @@ private:
 	GEDData();
 
 	void set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double> & edit_cost_constants);
+
+	void set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double> & edit_cost_constants, const std::unordered_map<std::string, std::any> & edit_cost_config = {});
 
 	void set_edit_costs_(EditCosts<UserNodeLabel, UserEdgeLabel> * edit_costs);
 

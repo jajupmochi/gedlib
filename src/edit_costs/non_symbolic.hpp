@@ -45,7 +45,7 @@ namespace ged {
  * - K. Riesen, H. Bunke:
  *   Graph data, in: *Graph Classification and Clustering Based on Vector Space Embedding*,
  *   https://doi.org/10.1142/9789814304726_0004
- * In this implementation, costs of node/edge ins/del/rel are set seperatedly.
+ * In this implementation, costs of node/edge ins/del/rel are set separately.
  */
 template<class UserNodeLabel, class UserEdgeLabel>
 class NonSymbolic : public EditCosts<UserNodeLabel, UserEdgeLabel> {

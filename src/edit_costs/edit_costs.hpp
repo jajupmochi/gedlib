@@ -28,6 +28,7 @@
 #define SRC_EDIT_COSTS_EDIT_COSTS_HPP_
 
 #include "../env/common_types.hpp"
+#include <any>
 
 namespace ged {
 
@@ -49,6 +50,13 @@ public:
 	 * @brief Constructor.
 	 */
 	EditCosts();
+
+
+	/*!
+	 * @brief Sets the configuration of the edit costs.
+	 * @param[in] config A map of configuration options.
+	 */
+	virtual void set_config(const std::unordered_map<std::string, std::any> & config);
 
 	/*!
 	 * @brief Node insertions cost function.

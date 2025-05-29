@@ -27,6 +27,9 @@
 #ifndef SRC_METHODS_ML_BASED_METHOD_IPP_
 #define SRC_METHODS_ML_BASED_METHOD_IPP_
 
+#include <algorithm>
+#include <random>
+
 namespace ged {
 
 // === Definitions of destructor and constructor. ===
@@ -744,7 +747,11 @@ load_or_generate_training_data_() {
 			}
 		}
 		std::cout << "\n";
-		std::random_shuffle(assignments_.begin(), assignments_.end());
+		// Shuffle the assignments:
+		std::random_device rng;
+		std::mt19937 urng(rng());
+		std::shuffle(assignments_.begin(), assignments_.end(), urng);
+		// std::random_shuffle(assignments_.begin(), assignments_.end());
 	}
 
 	// Initialize the specialized training data for DNN_ or SVM_.

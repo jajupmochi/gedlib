@@ -27,6 +27,7 @@
 #ifndef SRC_UTIL_MISC_IPP_
 #define SRC_UTIL_MISC_IPP_
 
+#include <optional>
 namespace ged {
 
 namespace util {
@@ -224,8 +225,25 @@ is_option_name(std::string & word) {
 	return false;
 }
 
+template<typename T>
+std::optional<std::reference_wrapper<const T>>
+get_attr_label_value(const ged::AttrLabel & label_map, const std::string & key) {
+	auto it = label_map.find(key);
+	if (it != label_map.end()) {
+		if (std::holds_alternative<T>(it->second)) {
+			return std::cref(std::get<T>(it->second));
+		}
+		else {
+			return std::nullopt;
+		}
+	}
+	else {
+		return std::nullopt;
+	}
 }
 
-}
+} // namespace util
+
+} // namespace ged
 
 #endif /* SRC_UTIL_MISC_IPP_ */

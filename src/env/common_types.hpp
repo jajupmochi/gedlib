@@ -28,9 +28,11 @@
 #define SRC_ENV_COMMON_TYPES_HPP_
 
 // Include standard libraries.
+#include <asm-generic/errno.h>
 #include <cstddef>
 #include <functional>
 #include <limits>
+#include <variant>
 #include <vector>
 #include <list>
 #include <map>
@@ -94,6 +96,14 @@ typedef std::chrono::duration<double> Seconds;
  * @brief Type of node and edge labels of graphs given in the .gxl file format.
  */
 typedef std::map<std::string, std::string> GXLLabel;
+
+/*!
+ * @brief Type of attributed labels of nodes and edges.
+ * @details The attributes are stored as a map from attribute names to attribute values.
+ * The attribute values can be of different types, such as string, int, double, bool,
+ * or vectors of these types.
+ */
+using AttrLabel = std::map<std::string, std::variant<std::string, int, double, bool, std::vector<std::string>, std::vector<int>, std::vector<double>, std::vector<bool>>>;
 
 /*!
  * @brief Streams std::map.
@@ -206,6 +216,7 @@ struct Options {
 		LETTER,      //!< Selects ged::Letter.
 		LETTER2,     //!< Selects ged:Letter2.
 		NON_SYMBOLIC, //!< Selects ged:NonSymbolic.
+		GEOMETRIC,   //!< Selects ged::Geometric.
 		CONSTANT     //!< Selects ged::Constant.
 	};
 
@@ -250,6 +261,15 @@ struct Options {
 		INITIALIZED,//!< The algorithm has been initialized.
 		CONVERGED,  //!< The algorithm has converged.
 		TERMINATED  //!< The algorithm has terminated.
+	};
+
+	enum class Metric {
+		EUCLIDEAN, //!< Euclidean metric.
+		MANHATTAN, //!< Manhattan metric.
+		COSINE,    //!< Cosine metric.
+		HAMMING,   //!< Hamming metric.
+		JACCARD,   //!< Jaccard metric.
+		GAUSSIAN,  //!< Gaussian metric.
 	};
 
 };
