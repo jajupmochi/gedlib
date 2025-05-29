@@ -81,10 +81,20 @@ set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double> & edit_
 	delete_edit_costs_ = true;
 }
 
+template<class UserNodeLabel, class UserEdgeLabel>
+void
+GEDData<UserNodeLabel, UserEdgeLabel>::
+set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double>& edit_cost_constants, const std::unordered_map<std::string, std::any>& edit_cost_config) {
+	// Throw a not-implemented exception:
+	throw Error("The 3-parameter version of set_edit_costs_() is not implemented for template parameters UserNodeLabel = " + std::string(typeid(UserNodeLabel).name()) + " and UserEdgeLabel = " + std::string(typeid(UserEdgeLabel).name()) + ". Please use the 2-parameter version instead.");
+    // // For generic types, ignore the config and call the 2-parameter version
+    // this->set_edit_costs_(edit_costs, edit_cost_constants);
+}
+
 template<>
 void
 GEDData<GXLLabel, GXLLabel>::
-set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double> & edit_cost_constants) {
+set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double> & edit_cost_constants, const std::unordered_map<std::string, std::any> & edit_cost_config) {
 	if (delete_edit_costs_) {
 		delete edit_costs_;
 	}
@@ -164,27 +174,27 @@ set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double> & edit_
 		}
 		break;
 	case Options::EditCosts::LETTER2:
-			if (edit_cost_constants.size() == 5) {
-				edit_costs_ = new Letter2<GXLLabel, GXLLabel>(edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2), edit_cost_constants.at(3), edit_cost_constants.at(4)); // @suppress("Symbol is not resolved")
-			}
-			else if (edit_cost_constants.size() == 0) {
-				edit_costs_ = new Letter2<GXLLabel, GXLLabel>();
-			}
-			else {
-				throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::LETTER2. Expected: 5 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
-			}
-			break;
+		if (edit_cost_constants.size() == 5) {
+			edit_costs_ = new Letter2<GXLLabel, GXLLabel>(edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2), edit_cost_constants.at(3), edit_cost_constants.at(4)); // @suppress("Symbol is not resolved")
+		}
+		else if (edit_cost_constants.size() == 0) {
+			edit_costs_ = new Letter2<GXLLabel, GXLLabel>();
+		}
+		else {
+			throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::LETTER2. Expected: 5 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
+		}
+		break;
 	case Options::EditCosts::NON_SYMBOLIC:
-			if (edit_cost_constants.size() == 6) {
-				edit_costs_ = new NonSymbolic<GXLLabel, GXLLabel>(edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2), edit_cost_constants.at(3), edit_cost_constants.at(4), edit_cost_constants.at(5)); // @suppress("Symbol is not resolved")
-			}
-			else if (edit_cost_constants.size() == 0) {
-				edit_costs_ = new NonSymbolic<GXLLabel, GXLLabel>();
-			}
-			else {
-				throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::NonSymbolic. Expected: 6 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
-			}
-			break;
+		if (edit_cost_constants.size() == 6) {
+			edit_costs_ = new NonSymbolic<GXLLabel, GXLLabel>(edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2), edit_cost_constants.at(3), edit_cost_constants.at(4), edit_cost_constants.at(5)); // @suppress("Symbol is not resolved")
+		}
+		else if (edit_cost_constants.size() == 0) {
+			edit_costs_ = new NonSymbolic<GXLLabel, GXLLabel>();
+		}
+		else {
+			throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::NonSymbolic. Expected: 6 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
+		}
+		break;
 	case Options::EditCosts::CMU:
 		if (edit_cost_constants.size() == 2) {
 			edit_costs_ = new CMU<GXLLabel, GXLLabel>(edit_cost_constants.at(0), edit_cost_constants.at(2)); // @suppress("Symbol is not resolved")
@@ -208,8 +218,81 @@ set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double> & edit_
 		}
 		break;
 	}
+	edit_costs_->set_config(edit_cost_config);
 	delete_edit_costs_ = true;
 }
+
+
+template<>
+void
+GEDData<ged::AttrLabel, ged::AttrLabel>::
+set_edit_costs_(Options::EditCosts edit_costs, const std::vector<double> & edit_cost_constants, const std::unordered_map<std::string, std::any> & edit_cost_config) {
+	if (delete_edit_costs_) {
+		delete edit_costs_;
+	}
+	switch (edit_costs) {
+	// todo: these two should support AttrLabel as well, but they currently do not.
+	// case Options::EditCosts::LETTER:
+	// 	if (edit_cost_constants.size() == 3) {
+	// 		edit_costs_ = new Letter<ged::AttrLabel, ged::AttrLabel>(edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2)); // @suppress("Symbol is not resolved")
+	// 	}
+	// 	else if (edit_cost_constants.size() == 0) {
+	// 		edit_costs_ = new Letter<ged::AttrLabel, ged::AttrLabel>();
+	// 	}
+	// 	else {
+	// 		throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::LETTER. Expected: 3 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
+	// 	}
+	// 	break;
+	// // Same as LETTER, but with 5 cost constants:
+	// case Options::EditCosts::LETTER2:
+	// 	if (edit_cost_constants.size() == 5) {
+	// 		edit_costs_ = new Letter2<ged::AttrLabel, ged::AttrLabel>(edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2), edit_cost_constants.at(3), edit_cost_constants.at(4)); // @suppress("Symbol is not resolved")
+	// 	}
+	// 	else if (edit_cost_constants.size() == 0) {
+	// 		edit_costs_ = new Letter2<ged::AttrLabel, ged::AttrLabel>();
+	// 	}
+	// 	else {
+	// 		throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::LETTER2. Expected: 5 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
+	// 	}
+	// 	break;
+	// // Each value of the label is a double value:
+	// case Options::EditCosts::NON_SYMBOLIC:
+	// 	if (edit_cost_constants.size() == 6) {
+	// 		edit_costs_ = new NonSymbolic<ged::AttrLabel, ged::AttrLabel>(edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2), edit_cost_constants.at(3), edit_cost_constants.at(4), edit_cost_constants.at(5)); // @suppress("Symbol is not resolved")
+	// 	}
+	// 	else if (edit_cost_constants.size() == 0) {
+	// 		edit_costs_ = new NonSymbolic<ged::AttrLabel, ged::AttrLabel>();
+	// 	}
+	// 	else {
+	// 		throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::NonSymbolic. Expected: 6 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
+	// 	}
+	// 	break;
+	case Options::EditCosts::GEOMETRIC:
+		if (edit_cost_constants.size() == 6) {
+			edit_costs_ = new Geometric<ged::AttrLabel, ged::AttrLabel>(
+				edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2), edit_cost_constants.at(3), edit_cost_constants.at(4), edit_cost_constants.at(5)); // @suppress("Symbol is not resolved")
+		}
+		else if (edit_cost_constants.size() == 10) {
+			// node_ins_cost, node_del_cost, edge_ins_cost, edge_del_cost, 
+			// node_label_cost, node_coord_cost, node_embed_cost, edge_label_cost = 1, edge_weight_cost = 1, edge_embed_cost
+			// Notice that the replacement costs are at the end of the arguments, which is different from the 6 constants version.
+			edit_costs_ = new Geometric<ged::AttrLabel, ged::AttrLabel>(
+				edit_cost_constants.at(0), edit_cost_constants.at(1), edit_cost_constants.at(2), edit_cost_constants.at(3),
+				edit_cost_constants.at(4), edit_cost_constants.at(5), edit_cost_constants.at(6), edit_cost_constants.at(7),
+				edit_cost_constants.at(8), edit_cost_constants.at(9)); // @suppress("Symbol is not resolved")	
+		}
+		else if (edit_cost_constants.size() == 0) {
+			edit_costs_ = new Geometric<ged::AttrLabel, ged::AttrLabel>{};
+		}
+		else {
+			throw Error("Wrong number of constants for selected edit costs ged::Options::EditCosts::NonSymbolic. Expected: 6 or 0; actual: " + std::to_string(edit_cost_constants.size()) + ".");
+		}
+		break;
+	}
+	edit_costs_->set_config(edit_cost_config);
+	delete_edit_costs_ = true;
+}
+
 
 template<class UserNodeLabel, class UserEdgeLabel>
 void
@@ -233,6 +316,15 @@ node_label_to_id_(const UserNodeLabel & node_label) {
 	}
 	node_labels_.push_back(node_label);
 	return (id + 1);
+}
+
+template<>
+LabelID
+GEDData<ged::AttrLabel, ged::AttrLabel>::
+node_label_to_id_(const ged::AttrLabel & node_label) {
+	// todo: maybe check if only symbolic labels are used?
+	node_labels_.push_back(node_label);
+    return static_cast<LabelID>(node_labels_.size());
 }
 
 template<class UserNodeLabel, class UserEdgeLabel>

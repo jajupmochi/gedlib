@@ -59,12 +59,20 @@ public:
 	 */
 	GEDEnv();
 
+	// /*!
+	//  * @brief Sets the edit costs to one of the predefined edit costs.
+	//  * @param[in] edit_costs Select one of the predefined edit costs.
+	//  * @param[in] edit_cost_constants Constants passed to the constructor of the edit cost class selected by @p edit_costs.
+	//  */
+	// void set_edit_costs(Options::EditCosts edit_costs, std::vector<double> edit_cost_constants = {});
+
 	/*!
 	 * @brief Sets the edit costs to one of the predefined edit costs.
 	 * @param[in] edit_costs Select one of the predefined edit costs.
-	 * @param[in] edit_cost_constants Constants passed to the constructor of the edit cost class selected by @p edit_costs.
+	 * @param[in] edit_cost_constant Constant passed to the constructor of the edit cost class selected by @p edit_costs. If not specified, the default value is used.
+	 * @param[in] edit_cost_config Configuration passed to the constructor of the edit cost class selected by @p edit_costs. If not specified, the default value is used.
 	 */
-	void set_edit_costs(Options::EditCosts edit_costs, std::vector<double> edit_cost_constants = {});
+	void set_edit_costs(Options::EditCosts edit_costs, std::vector<double> edit_cost_constant = {}, const std::unordered_map<std::string, std::any> & edit_cost_config = {});
 
 	/*!
 	 * @brief Sets the edit costs to user defined edit costs.

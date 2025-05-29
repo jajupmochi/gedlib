@@ -33,6 +33,10 @@ template<>
 NonSymbolic<GXLLabel, GXLLabel>::
 ~NonSymbolic() {}
 
+// template<>
+// NonSymbolic<ged::AttrLabel, ged::AttrLabel>::
+// ~NonSymbolic() {}
+
 template<>
 NonSymbolic<GXLLabel, GXLLabel>::
 NonSymbolic(double node_ins_cost, double node_del_cost, double node_rel_cost, double edge_ins_cost, double edge_del_cost, double edge_rel_cost) :
@@ -42,6 +46,16 @@ node_rel_cost_{node_rel_cost},
 edge_ins_cost_{edge_ins_cost},
 edge_del_cost_{edge_del_cost},
 edge_rel_cost_{edge_rel_cost} {}
+
+// template<>
+// NonSymbolic<ged::AttrLabel, ged::AttrLabel>::
+// NonSymbolic(double node_ins_cost, double node_del_cost, double node_rel_cost, double edge_ins_cost, double edge_del_cost, double edge_rel_cost) :
+// node_ins_cost_{node_ins_cost},
+// node_del_cost_{node_del_cost},
+// node_rel_cost_{node_rel_cost},
+// edge_ins_cost_{edge_ins_cost},
+// edge_del_cost_{edge_del_cost},
+// edge_rel_cost_{edge_rel_cost} {}
 
 template<>
 double

@@ -1,0 +1,19 @@
+{
+    "workbench.colorCustomizations": {
+        "editor.lineHighlightBackground": "#1073cf2d",
+        "editor.lineHighlightBorder": "#9fced11f",
+        "activityBar.background": "#3F2635",
+        "titleBar.activeBackground": "#58354A",
+        "titleBar.activeForeground": "#FCFAFB"
+    },
+    "cSpell.words": [
+        "Blumenthal",
+        "GEDLIB"
+    ],
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.arguments": ["--compile-commands-dir=build"],
+    // Use ninja to build the project
+    "cmake.generator": "Ninja",
+    "cmake.configureOnOpen": true,
+    "terminal.explorerKind": "external",
+}
