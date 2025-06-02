@@ -19,6 +19,13 @@
 #                                                                          #
 ############################################################################
 
+## Check if this file is being used during the build process:  fixme:
+#message(STATUS "I am ironman!!🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖")
+#message(STATUS "I am ironman!!🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖")
+#message(STATUS "I am ironman!!🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖")
+#message(STATUS "I am ironman!!🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖")
+#hahaha
+
 add_library(gxlgedlib SHARED env/ged_env.gxl.cpp)
 set_target_properties(gxlgedlib PROPERTIES SUFFIX ".so")
 target_link_libraries(gxlgedlib nomad doublefann svm)
