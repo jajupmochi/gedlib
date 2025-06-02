@@ -32,6 +32,7 @@
 namespace ged {
 
 template class GEDEnv<GXLNodeID, GXLLabel, GXLLabel>;
+template class GEDEnv<GXLNodeID, ged::AttrLabel, ged::AttrLabel>;
 
 }
 
